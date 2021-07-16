@@ -19,7 +19,7 @@ public class User {
         this.initial = initial;
         this.name = name;
         this.role = role;
-        this.role = role;
+        this.ban = ban;
     }
 
     public String getName() {
