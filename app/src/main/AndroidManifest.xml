@@ -10,9 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".activities.CreateAccountActivity">
-
-
         </activity>
+        <activity android:name=".activities.AddNewMeetingActivity" />
+        <activity android:name=".activities.UpdateMeetingActivity" />
+        <activity android:name=".activities.ViewAllMeetingActivity" />
+        <activity android:name=".activities.ViewAllMeetingAstActivity" />
         <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>

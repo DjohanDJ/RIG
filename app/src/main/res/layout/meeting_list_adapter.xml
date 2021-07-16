@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/white_box_shadow"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        android:background="@drawable/gradient"
+        />
+
+    <TextView
+        android:id="@+id/meeting_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="280dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Meeting Desc"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/m_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:textColor="#000000"
+        android:text="Meeting Id : "
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_desc" />
+
+    <TextView
+        android:id="@+id/meeting_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="200dp"
+        android:text="92013u91083"
+        app:layout_constraintBottom_toBottomOf="@+id/m_id"
+        app:layout_constraintStart_toEndOf="@+id/m_id"
+        app:layout_constraintTop_toTopOf="@+id/m_id" />
+
+    <TextView
+        android:id="@+id/m_pas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Meeting Password : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/m_id" />
+
+    <TextView
+        android:id="@+id/meeting_pas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="160dp"
+        android:text="asdbasd"
+        app:layout_constraintBottom_toBottomOf="@+id/m_pas"
+        app:layout_constraintStart_toEndOf="@+id/m_pas"
+        app:layout_constraintTop_toTopOf="@+id/m_pas" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Scheduled at : "
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/m_pas" />
+
+
+    <TextView
+        android:id="@+id/allScheduleTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dd mm YYYY HH:mm"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/m_pas" />
+
+    <Button
+        android:id="@+id/update_meeting_button"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button1"
+        android:text="Update"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <Button
+        android:id="@+id/delete_meeting_button"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_delete"
+        android:text="Delete"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toEndOf="@+id/update_meeting_button"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:layout_width="390dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="zoom link zoom link zoom link zoom link zoom link zoom link zoom link zoom link"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <Button
+        android:id="@+id/zoom"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/button1"
+        android:text="Zoom"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
