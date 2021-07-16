@@ -3,4 +3,20 @@
     <string name="emailFilled">Email must be filled</string>
     <string name="passFilled">Password must be filled</string>
     <string name="invalidCredential">Invalid credential</string>
+    <string name="create_your_account">Create Account</string>
+    <string name="prompt_username">Name</string>
+    <string name="prompt_email">Email (.edu)</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_initial">Initial (Ex. XX20-1)</string>
+    <string name="create_account">Create Account</string>
+    <string name="username_filled">Name must be filled</string>
+    <string name="initial">Initial must be correct</string>
+    <string name="sign_up_error">Create account failed</string>
+    <string-array name="role">
+        <item>Admin</item>
+        <item>Supervisor</item>
+        <item>Network Administrator</item>
+        <item>Subject Coordinator</item>
+        <item>Assistant</item>
+    </string-array>
 </resources>
