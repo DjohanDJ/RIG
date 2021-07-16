@@ -62,7 +62,7 @@
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/allScheduleList"
+                    android:id="@+id/allMeetingNonAst"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

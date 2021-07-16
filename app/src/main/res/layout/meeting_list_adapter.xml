@@ -8,7 +8,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="210dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/m_id" />
 
     <TextView
-        android:id="@+id/meeting_pas"
+        android:id="@+id/meeting_pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="160dp"
@@ -89,7 +89,7 @@
 
 
     <TextView
-        android:id="@+id/allScheduleTime"
+        android:id="@+id/meeting_schdule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="dd mm YYYY HH:mm"
@@ -121,23 +121,25 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
-        android:layout_width="390dp"
+        android:id="@+id/meeting_link_zoom"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="zoom link zoom link zoom link zoom link zoom link zoom link zoom link zoom link"
+        android:layout_marginTop="55dp"
+        android:text="https://binus.zoom.us/j/7011393472?pwd=K2JYMWZ3Y2JtNnJ6Z1JrcWI3UjQ3UT09"
         android:textColor="#000000"
+        android:autoLink="web"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
-        android:id="@+id/zoom"
+        android:id="@+id/copy1_button"
         android:layout_width="80dp"
         android:layout_height="30dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/button1"
-        android:text="Zoom"
+        android:text="Copy"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/view" />
