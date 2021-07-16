@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">RIG</string>
+    <string name="emailFilled">Email must be filled</string>
+    <string name="passFilled">Password must be filled</string>
+    <string name="invalidCredential">Invalid credential</string>
+</resources>

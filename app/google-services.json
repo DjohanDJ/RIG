@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "348263763934",
+    "project_id": "rig-1-4ee95",
+    "storage_bucket": "rig-1-4ee95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348263763934:android:910f9af56c374ea73e974f",
+        "android_client_info": {
+          "package_name": "com.example.rig"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348263763934-3j33be61ofqs4k80cdf4gqk12rkqqacp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4k0cYnrNIXBkMSMW2eInJQ3FGu-qyG7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348263763934-3j33be61ofqs4k80cdf4gqk12rkqqacp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
