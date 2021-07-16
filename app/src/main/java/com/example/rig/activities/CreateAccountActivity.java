@@ -73,7 +73,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                         Toast.makeText(CreateAccountActivity.this, getResources().getString(R.string.sign_up_error), Toast.LENGTH_SHORT).show();
                     } else {
                         String userId = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getUser()).getUid();
-                        User newUser = new User(userId, email, password, initial, name, role, "No");
+                        User newUser = new User(userId, email, password, initial, name, role, "Not Ban");
                         SingletonFirebaseTool.getInstance().getMyFireStoreReference().collection("users").document(userId).set(newUser);
                         finish();
                     }
