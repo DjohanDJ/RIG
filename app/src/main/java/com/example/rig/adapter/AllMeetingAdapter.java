@@ -1,5 +1,6 @@
 package com.example.rig.adapter;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rig.R;
 import com.example.rig.activities.UpdateMeetingActivity;
 import com.example.rig.activities.ViewAllMeetingActivity;
+import com.example.rig.authentication.SingletonFirebaseTool;
 import com.example.rig.models.Meeting;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
@@ -72,6 +75,23 @@ public class AllMeetingAdapter extends RecyclerView.Adapter<AllMeetingAdapter.My
                 myIntent.putExtra("time", list.get(position).getTime());
                 myIntent.putExtra("roles", list.get(position).getRoles());
                 ctx.startActivity(myIntent);
+                ((Activity)v.getContext()).finish();
+            }
+        });
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                SingletonFirebaseTool.getInstance().getMyFireStoreReference().collection("meetings")
+                        .document(list.get(position).getId())
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(ctx, ctx.getResources().getString(R.string.meeting_updated), Toast.LENGTH_SHORT).show();
+                                ((Activity)v.getContext()).finish();
+                            }
+                        });
             }
         });
 

@@ -4,12 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rig.R;
+import com.example.rig.animations.LoadingAnimation;
+import com.example.rig.authentication.SingletonFirebaseTool;
+import com.example.rig.authentication.UserSession;
 import com.example.rig.models.Meeting;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class UpdateMeetingActivity extends AppCompatActivity {
 
@@ -17,6 +29,7 @@ public class UpdateMeetingActivity extends AppCompatActivity {
     TextView time;
     CheckBox astBox, spvBox, naBox, subcoBox;
     Meeting meeting = new Meeting();
+    private Button updateMeeting;
 
     void initVariable(){
         desc = findViewById(R.id.up_meet_desc);
@@ -28,6 +41,7 @@ public class UpdateMeetingActivity extends AppCompatActivity {
         spvBox = findViewById(R.id.up_spv2);
         naBox = findViewById(R.id.up_na2);
         subcoBox = findViewById(R.id.up_subco2);
+        updateMeeting = findViewById(R.id.update_meeting_button);
     }
 
     void setMeeting(){
@@ -67,7 +81,50 @@ public class UpdateMeetingActivity extends AppCompatActivity {
             }
         }
 
+        doButtonListener();
 
+    }
+
+    private void doButtonListener() {
+        updateMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadingAnimation.startLoading(UpdateMeetingActivity.this);
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+                ArrayList<String> updatedRole = new ArrayList<>();
+                updatedRole.clear();
+
+                if(astBox.isChecked()){
+                    updatedRole.add("Assistant");
+                }
+                if(spvBox.isChecked()){
+                    updatedRole.add("Supervisor");
+                }
+                if(naBox.isChecked()){
+                    updatedRole.add("Network Administrator");
+                }
+                if(subcoBox.isChecked()){
+                    updatedRole.add("Subject Coordinator");
+                }
+
+                Meeting updatedMeeting = new Meeting(meeting.getId(), desc.getText().toString(), link_zoom.getText().toString(),
+                        meet_id.getText().toString(), meet_pass.getText().toString(), time.getText().toString(),
+                        dateFormat.format(date), updatedRole);
+                SingletonFirebaseTool.getInstance().getMyFireStoreReference().collection("meetings")
+                        .document(meeting.getId())
+                        .set(updatedMeeting)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(UpdateMeetingActivity.this, getResources().getString(R.string.meeting_updated), Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+
+            }
+        });
     }
 
 

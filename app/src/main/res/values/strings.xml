@@ -17,6 +17,7 @@
     <string name="update_account">Update account</string>
     <string name="edit_success">Profile updated</string>
     <string name="edit_failed">Failed to update</string>
+    <string name="meeting_updated">Meeting updated</string>
     <string-array name="role">
         <item>Admin</item>
         <item>Supervisor</item>

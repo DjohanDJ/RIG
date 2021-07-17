@@ -73,8 +73,8 @@ public class ViewAllMeetingAstActivity extends AppCompatActivity {
 
                                     Date date = null, date2 = null;
                                     try {
-                                        date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o1.getTime());
-                                        date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o2.getTime());
+                                        date = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(o1.getTime());
+                                        date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(o2.getTime());
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
