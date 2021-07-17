@@ -64,6 +64,13 @@ public class AllMeetingAdapter extends RecyclerView.Adapter<AllMeetingAdapter.My
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(ctx, UpdateMeetingActivity.class);
+                myIntent.putExtra("id", list.get(position).getId());
+                myIntent.putExtra("description", list.get(position).getDescription());
+                myIntent.putExtra("meeting_id", list.get(position).getMeeting_id());
+                myIntent.putExtra("meeting_pass", list.get(position).getMeeting_password());
+                myIntent.putExtra("link_zoom", list.get(position).getLink_meeting());
+                myIntent.putExtra("time", list.get(position).getTime());
+                myIntent.putExtra("roles", list.get(position).getRoles());
                 ctx.startActivity(myIntent);
             }
         });

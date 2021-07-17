@@ -199,24 +199,28 @@
                     >
 
                     <CheckBox
+                        android:id="@+id/up_spv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="SPV"
                         />
 
                     <CheckBox
+                        android:id="@+id/up_subco"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Subco"
                         />
 
                     <CheckBox
+                        android:id="@+id/up_na"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="NA"
                         />
 
                     <CheckBox
+                        android:id="@+id/up_ast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Assistant"
