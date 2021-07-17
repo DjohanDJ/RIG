@@ -40,8 +40,8 @@ import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView name;
-    private Button AllMeetingNonAst, AllMeetingAst, create, ban, grant;
+    private static TextView name;
+    private Button AllMeetingNonAst, AllMeetingAst, create, ban, grant, editProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         this.create = findViewById(R.id.createAccBtn);
         this.ban = findViewById(R.id.banAccBtn);
         this.grant = findViewById(R.id.grantRoleAccBtn);
+        this.editProfile = findViewById(R.id.editProfile);
     }
 
     private void setButtonOnClick(final Context ctx){
@@ -111,6 +112,19 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ctx, EditProfileActivity.class);
+                ctx.startActivity(myIntent);
+            }
+        });
+
+
+    }
+
+    public static void setUsernameText(String editText) {
+        name.setText(editText);
     }
 
     void process(final Context ctx){

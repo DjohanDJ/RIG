@@ -13,6 +13,10 @@
     <string name="initial">Initial must be correct</string>
     <string name="sign_up_error">Create account failed</string>
     <string name="testing_text">DJ20-1</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="update_account">Update account</string>
+    <string name="edit_success">Profile updated</string>
+    <string name="edit_failed">Failed to update</string>
     <string-array name="role">
         <item>Admin</item>
         <item>Supervisor</item>

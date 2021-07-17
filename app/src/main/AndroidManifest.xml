@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activities.GrantRoleAccountActivity"></activity>
-        <activity android:name=".activities.BanAccountActivity"></activity>
+        <activity android:name=".activities.EditProfileActivity"></activity>
+        <activity android:name=".activities.GrantRoleAccountActivity" />
+        <activity android:name=".activities.BanAccountActivity" />
         <activity android:name=".activities.CreateAccountActivity" />
         <activity android:name=".activities.AddNewMeetingActivity" />
         <activity android:name=".activities.UpdateMeetingActivity" />
@@ -25,9 +26,11 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".notification.NotificationBroadcast"  android:exported="true">
+        <receiver
+            android:name=".notification.NotificationBroadcast"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
             </intent-filter>
         </receiver>
