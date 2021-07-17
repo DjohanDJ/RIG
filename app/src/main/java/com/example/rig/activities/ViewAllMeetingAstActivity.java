@@ -12,6 +12,7 @@ import com.example.rig.R;
 import com.example.rig.adapter.AllMeetingAdapter;
 import com.example.rig.adapter.AllMeetingAstAdapter;
 import com.example.rig.authentication.SingletonFirebaseTool;
+import com.example.rig.authentication.UserSession;
 import com.example.rig.models.Meeting;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,9 +56,11 @@ public class ViewAllMeetingAstActivity extends AppCompatActivity {
 
                         ArrayList<Meeting> meetingFilter = new ArrayList<>();
 
+                        String role = UserSession.getCurrentUser().getRole();
+
                         for( Meeting m : meetingList){
                             for(String r : m.getRoles()){
-                                if(r.equals("Assistant")){
+                                if(r.equals(role)){
                                     meetingFilter.add(m);
                                 }
                             }
