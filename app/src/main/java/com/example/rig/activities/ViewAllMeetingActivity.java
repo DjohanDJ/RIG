@@ -52,29 +52,32 @@ public class ViewAllMeetingActivity extends AppCompatActivity {
                                 meetingList.add(meeting);
                             }
 
-                            Collections.sort(meetingList, new Comparator<Meeting>() {
-                                @Override
-                                public int compare(Meeting o1, Meeting o2) {
+                            if(meetingList.size() != 0){
+                                Collections.sort(meetingList, new Comparator<Meeting>() {
+                                    @Override
+                                    public int compare(Meeting o1, Meeting o2) {
 
-                                    Date date = null, date2 = null;
-                                    try {
-                                        date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o1.getTime());
-                                        date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o2.getTime());
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
+                                        Date date = null, date2 = null;
+                                        try {
+                                            date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o1.getTime());
+                                            date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o2.getTime());
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Timestamp ts1 = new Timestamp(date.getTime());
+                                        Timestamp ts2 = new Timestamp(date2.getTime());
+
+                                        return ts1.compareTo(ts2);
                                     }
-                                    Timestamp ts1 = new Timestamp(date.getTime());
-                                    Timestamp ts2 = new Timestamp(date2.getTime());
+                                });
 
-                                    return ts1.compareTo(ts2);
-                                }
-                            });
+                                AllMeetingAdapter comAdapter = new AllMeetingAdapter(ctx, meetingList);
+                                allMeeting.setAdapter(comAdapter);
+                                LinearLayoutManager layoutManager = new LinearLayoutManager(ctx);
+                                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                                allMeeting.setLayoutManager(layoutManager);
+                            }
 
-                            AllMeetingAdapter comAdapter = new AllMeetingAdapter(ctx, meetingList);
-                            allMeeting.setAdapter(comAdapter);
-                            LinearLayoutManager layoutManager = new LinearLayoutManager(ctx);
-                            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                            allMeeting.setLayoutManager(layoutManager);
                         }
                     }
         });

@@ -142,53 +142,91 @@ public class HomeActivity extends AppCompatActivity {
                                 meetingList.add(meeting);
                             }
 
-                            Collections.sort(meetingList, new Comparator<Meeting>() {
-                                @Override
-                                public int compare(Meeting o1, Meeting o2) {
+                            ArrayList<Meeting> meetingFilter = new ArrayList<>();
 
-                                    Date date = null, date2 = null;
-                                    try {
-                                        date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o1.getTime());
-                                        date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o2.getTime());
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
+                            String role = UserSession.getCurrentUser().getRole();
+
+                            for( Meeting m : meetingList){
+                                for(String r : m.getRoles()){
+                                    if(r.equals(role)){
+                                        meetingFilter.add(m);
                                     }
-                                    Timestamp ts1 = new Timestamp(date.getTime());
-                                    Timestamp ts2 = new Timestamp(date2.getTime());
-
-                                    return ts1.compareTo(ts2);
                                 }
-                            });
-
-                            Date pDate = null;
-
-                            try {
-                                pDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(meetingList.get(0).getTime());
-                            } catch (ParseException e) {
-                                e.printStackTrace();
                             }
 
-                            String hour = new SimpleDateFormat("HH").format(pDate);
-                            String minute = new SimpleDateFormat("mm").format(pDate);
-                            String year = new SimpleDateFormat("yyyy").format(pDate);
-                            String month = new SimpleDateFormat("MM").format(pDate);
-                            String day = new SimpleDateFormat("dd").format(pDate);
+                            if(meetingFilter.size() != 0){
+                                Collections.sort(meetingFilter, new Comparator<Meeting>() {
+                                    @Override
+                                    public int compare(Meeting o1, Meeting o2) {
+
+                                        Date date = null, date2 = null;
+                                        try {
+                                            date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o1.getTime());
+                                            date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o2.getTime());
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Timestamp ts1 = new Timestamp(date.getTime());
+                                        Timestamp ts2 = new Timestamp(date2.getTime());
+
+                                        return ts1.compareTo(ts2);
+                                    }
+                                });
+
+                                Date pDate = null;
+
+                                try {
+                                    pDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(meetingFilter.get(0).getTime());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String hour = new SimpleDateFormat("HH").format(pDate);
+                                String minute = new SimpleDateFormat("mm").format(pDate);
+                                String year = new SimpleDateFormat("yyyy").format(pDate);
+                                String month = new SimpleDateFormat("MM").format(pDate);
+                                String day = new SimpleDateFormat("dd").format(pDate);
 
 
-                            Intent intent =  new Intent(HomeActivity.this, NotificationBroadcast.class);
-                            final PendingIntent pendingIntent = PendingIntent.getBroadcast(HomeActivity.this, 0, intent, 0);
+                                Intent intent =  new Intent(HomeActivity.this, NotificationBroadcast.class);
+                                intent.putExtra("role", UserSession.getCurrentUser().getRole());
+                                final PendingIntent pendingIntent = PendingIntent.getBroadcast(HomeActivity.this, 0, intent, 0);
 
-                            final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(Integer.parseInt(year) , Integer.parseInt(month) - 1, Integer.parseInt(day),
-                                    Integer.parseInt(hour),  Integer.parseInt(minute), 0);
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(Integer.parseInt(year) , Integer.parseInt(month) - 1, Integer.parseInt(day),
+                                        Integer.parseInt(hour),  Integer.parseInt(minute), 0);
 
 
 
-                            Toast.makeText(ctx,  calendar.getTime().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ctx,  calendar.getTime().toString(), Toast.LENGTH_SHORT).show();
 
-                            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                                int minute5 = 1000 * 60 * 5; //5 menit
+                                calendar.setTimeInMillis(calendar.getTimeInMillis() - minute5);
+
+                                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                            }else{
+
+                                Intent intent =  new Intent(HomeActivity.this, NotificationBroadcast.class);
+                                intent.putExtra("role", UserSession.getCurrentUser().getRole());
+                                final PendingIntent pendingIntent = PendingIntent.getBroadcast(HomeActivity.this, 0, intent, 0);
+
+
+                                final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(calendar.get(calendar.YEAR), calendar.get(calendar.MONTH), calendar.get(calendar.DATE),calendar.get(calendar.HOUR),  calendar.get(calendar.MINUTE), 0);
+                                calendar.add(Calendar.MINUTE, 1);
+
+                                Toast.makeText(ctx,  calendar.getTime().toString(), Toast.LENGTH_SHORT).show();
+
+                                int repeatEvery = 1000 * 60 * 1; //1 menit
+
+                                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), repeatEvery, pendingIntent);
+                            }
+
+
                         }
                     }
         });
