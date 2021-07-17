@@ -98,27 +98,6 @@
                 android:background="@drawable/button1"
                 />
 
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                android:text="Update Meeting"
-                android:textColor="#ffffff"
-                android:background="@drawable/button1"
-                />
-
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                android:text="Delete Meeting"
-                android:textColor="#ffffff"
-                android:background="@drawable/button1"
-                />
 
             <Button
                 android:id="@+id/viewAllMeetingAstBtn"

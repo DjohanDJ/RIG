@@ -3,8 +3,6 @@ package com.example.rig.adapter;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,34 +14,31 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rig.R;
-import com.example.rig.activities.UpdateMeetingActivity;
-import com.example.rig.activities.ViewAllMeetingActivity;
 import com.example.rig.models.Meeting;
 
 import java.util.ArrayList;
 
-public class AllMeetingAdapter extends RecyclerView.Adapter<AllMeetingAdapter.MyViewHolder>{
+public class AllMeetingAstAdapter extends RecyclerView.Adapter<AllMeetingAstAdapter.MyViewHolder>{
 
     Context ctx;
     ArrayList<Meeting> list;
 
-    public AllMeetingAdapter(Context ctx, ArrayList<Meeting> list){
+    public AllMeetingAstAdapter(Context ctx, ArrayList<Meeting> list){
         this.ctx = ctx;
         this.list = list;
     }
 
-
     @NonNull
     @Override
-    public AllMeetingAdapter.MyViewHolder onCreateViewHolder(@NonNull  ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull  ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(ctx);
-        View view = inflater.inflate(R.layout.meeting_list_adapter, parent, false);
+        View view = inflater.inflate(R.layout.meeting_lis_ast_adapter, parent, false);
 
-        return new AllMeetingAdapter.MyViewHolder(view);
+        return new AllMeetingAstAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AllMeetingAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull  AllMeetingAstAdapter.MyViewHolder holder, final int position) {
         holder.meetingDesc.setText(list.get(position).getDescription());
         holder.meetingId.setText(list.get(position).getMeeting_id());
         holder.meetingPass.setText(list.get(position).getMeeting_password());
@@ -60,13 +55,7 @@ public class AllMeetingAdapter extends RecyclerView.Adapter<AllMeetingAdapter.My
             }
         });
 
-        holder.update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(ctx, UpdateMeetingActivity.class);
-                ctx.startActivity(myIntent);
-            }
-        });
+
 
 
     }
@@ -76,21 +65,20 @@ public class AllMeetingAdapter extends RecyclerView.Adapter<AllMeetingAdapter.My
         return list.size();
     }
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView meetingDesc,meetingId, meetingPass, meetingSchedule, meetingLink;
-        Button copy, update, delete;
+        Button copy;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            meetingDesc = itemView.findViewById(R.id.meeting_desc);
-            meetingId = itemView.findViewById(R.id.meeting_id);
-            meetingPass = itemView.findViewById(R.id.meeting_pass);
-            meetingSchedule = itemView.findViewById(R.id.meeting_schdule);
-            meetingLink = itemView.findViewById(R.id.meeting_link_zoom);
-            copy = itemView.findViewById(R.id.copy1_button);
-            update = itemView.findViewById(R.id.update_meeting_button);
-            delete = itemView.findViewById(R.id.delete_meeting_button);
+            meetingDesc = itemView.findViewById(R.id.meeting_desc2);
+            meetingId = itemView.findViewById(R.id.meeting_id2);
+            meetingPass = itemView.findViewById(R.id.meeting_pass2);
+            meetingSchedule = itemView.findViewById(R.id.meeting_time2);
+            meetingLink = itemView.findViewById(R.id.meeting_link_zoom2);
+            copy = itemView.findViewById(R.id.copy2_button);
         }
     }
 }

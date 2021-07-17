@@ -71,7 +71,7 @@
                 <EditText
                     android:id="@+id/add_meet_desc"
                     android:layout_width="300dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
@@ -91,7 +91,7 @@
                 <EditText
                     android:id="@+id/add_meet_id"
                     android:layout_width="300dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
@@ -111,7 +111,7 @@
                 <EditText
                     android:id="@+id/add_meet_password"
                     android:layout_width="300dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
@@ -173,7 +173,7 @@
                 <EditText
                     android:id="@+id/add_meet_link_zoom"
                     android:layout_width="300dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
