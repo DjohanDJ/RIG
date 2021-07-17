@@ -15,7 +15,7 @@ import com.example.rig.authentication.UserSession;
 public class HomeActivity extends AppCompatActivity {
 
     private TextView name;
-    private Button AllMeetingNonAst, AllMeetingAst;
+    private Button AllMeetingNonAst, AllMeetingAst, create, ban, grant;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +33,9 @@ public class HomeActivity extends AppCompatActivity {
         this.name = findViewById(R.id.welcome_text);
         this.AllMeetingNonAst = findViewById(R.id.viewAllMeetingNonAstBtn);
         this.AllMeetingAst = findViewById(R.id.viewAllMeetingAstBtn);
+        this.create = findViewById(R.id.createAccBtn);
+        this.ban = findViewById(R.id.banAccBtn);
+        this.grant = findViewById(R.id.grantRoleAccBtn);
     }
 
     private void setButtonOnClick(final Context ctx){
@@ -49,6 +52,30 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(ctx, ViewAllMeetingAstActivity.class);
+                ctx.startActivity(myIntent);
+            }
+        });
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ctx, CreateAccountActivity.class);
+                ctx.startActivity(myIntent);
+            }
+        });
+
+        ban.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ctx, BanAccountActivity.class);
+                ctx.startActivity(myIntent);
+            }
+        });
+
+        grant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ctx, GrantRoleAccountActivity.class);
                 ctx.startActivity(myIntent);
             }
         });
