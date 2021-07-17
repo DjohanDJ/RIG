@@ -35,8 +35,8 @@ public class NotificationBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String role = intent.getStringExtra("role");
-        checkAlarm(context,role);
-//        setNextAlarm(context);
+        String stat = intent.getStringExtra("stat");
+        checkAlarm(context,role,stat);
     }
 
     void sendNotif(Context context, String title, String desc){
@@ -50,7 +50,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
         notifManager.notify(200, builder.build());
     }
 
-    void checkAlarm(final Context ctx, final String role){
+    void checkAlarm(final Context ctx, final String role, final String stat){
         final ArrayList<Meeting> meetingList = new ArrayList<>();
 
         SingletonFirebaseTool.getInstance().getMyFireStoreReference().collection("meetings").get()
@@ -81,8 +81,8 @@ public class NotificationBroadcast extends BroadcastReceiver {
 
                                         Date date = null, date2 = null;
                                         try {
-                                            date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o1.getTime());
-                                            date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o2.getTime());
+                                            date = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(o1.getTime());
+                                            date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(o2.getTime());
                                         } catch (ParseException e) {
                                             e.printStackTrace();
                                         }
@@ -97,7 +97,6 @@ public class NotificationBroadcast extends BroadcastReceiver {
                                 SimpleDateFormat dFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
                                 Date date = new Date();
-                                date.setTime(date.getTime() - minute5);
                                 String today = dFormat.format(date);
                                 String postDate;
 
@@ -109,90 +108,30 @@ public class NotificationBroadcast extends BroadcastReceiver {
                                         e.printStackTrace();
                                     }
 
+                                    Date createdDate = null;
+                                    try {
+                                        createdDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(meeting.getCreated_time());
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
                                     pDate.setTime(pDate.getTime() - minute5);
                                     postDate = dFormat.format(pDate);
 
 
-                                    if(today.equalsIgnoreCase(postDate)){
+                                    if(postDate.equalsIgnoreCase(today)){
                                         sendNotif(ctx, meeting.getDescription(), "Meeting will start in 5 minutes");
-                                        Toast.makeText(ctx, "asd", Toast.LENGTH_SHORT).show();
                                         break;
-                                    }else if (pDate.getTime() - date.getTime() > 1000 * 60 * 60){
+                                    }else if (date.getTime() - pDate.getTime() > 1000 * 60 * 60){
                                         //delete meeting
+                                        break;
+                                    }else if (date.getTime() - createdDate.getTime() <= 1000 * 60 * 2){
+                                        sendNotif(ctx, meeting.getDescription(), "Check your new meeting");
+                                        break;
                                     }
                                 }
-
-
                             }
 
-                        }
-                    }
-                });
-
-    }
-
-    void setNextAlarm(final Context ctx){
-
-        final ArrayList<Meeting> meetingList = new ArrayList<>();
-
-        SingletonFirebaseTool.getInstance().getMyFireStoreReference().collection("meetings").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            meetingList.clear();
-                            for (QueryDocumentSnapshot documentSnapshot : Objects.requireNonNull(task.getResult())) {
-                                Meeting meeting = documentSnapshot.toObject(Meeting.class);
-                                meetingList.add(meeting);
-                            }
-
-                            Collections.sort(meetingList, new Comparator<Meeting>() {
-                                @Override
-                                public int compare(Meeting o1, Meeting o2) {
-
-                                    Date date = null, date2 = null;
-                                    try {
-                                        date = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o1.getTime());
-                                        date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(o2.getTime());
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    Timestamp ts1 = new Timestamp(date.getTime());
-                                    Timestamp ts2 = new Timestamp(date2.getTime());
-
-                                    return ts1.compareTo(ts2);
-                                }
-                            });
-
-                            Date pDate = null;
-
-                            try {
-                                pDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(meetingList.get(0).getTime());
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            String hour = new SimpleDateFormat("HH").format(pDate);
-                            String minute = new SimpleDateFormat("mm").format(pDate);
-                            String year = new SimpleDateFormat("yyyy").format(pDate);
-                            String month = new SimpleDateFormat("MM").format(pDate);
-                            String day = new SimpleDateFormat("dd").format(pDate);
-
-
-                            Intent intent =  new Intent(ctx, NotificationBroadcast.class);
-                            final PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, 0, intent, 0);
-
-                            final AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(Integer.parseInt(year) , Integer.parseInt(month) - 1, Integer.parseInt(day),
-                                    Integer.parseInt(hour),  Integer.parseInt(minute), 0);
-
-
-
-                            Toast.makeText(ctx,  calendar.getTime().toString(), Toast.LENGTH_SHORT).show();
-
-                            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
                         }
                     }
                 });
