@@ -91,6 +91,7 @@
                 />
 
             <Button
+                android:id="@+id/addNewMeetingBtn"
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:gravity="center"

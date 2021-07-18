@@ -18,6 +18,14 @@
     <string name="edit_success">Profile updated</string>
     <string name="edit_failed">Failed to update</string>
     <string name="meeting_updated">Meeting updated</string>
+    <string name="meeting_added">Meeting added</string>
+    <string name="desc">Description must be filled</string>
+    <string name="meetId">Meeting id must be filled</string>
+    <string name="meetPass">Meeting password must be filled</string>
+    <string name="pickdate">Pick the date please</string>
+    <string name="timeH">Time must be filled (dont forget \":\")</string>
+    <string name="link">Link must be filled</string>
+    <string name="checkAst">Please check the candidate (at least 1)</string>
     <string-array name="role">
         <item>Admin</item>
         <item>Supervisor</item>

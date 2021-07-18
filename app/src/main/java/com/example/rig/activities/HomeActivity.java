@@ -41,7 +41,7 @@ import java.util.Objects;
 public class HomeActivity extends AppCompatActivity {
 
     private static TextView name;
-    private Button AllMeetingNonAst, AllMeetingAst, create, ban, grant, editProfile;
+    private Button AllMeetingNonAst, AllMeetingAst, create, ban, grant, editProfile, addNewMeeting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         this.ban = findViewById(R.id.banAccBtn);
         this.grant = findViewById(R.id.grantRoleAccBtn);
         this.editProfile = findViewById(R.id.editProfile);
+        this.addNewMeeting = findViewById(R.id.addNewMeetingBtn);
     }
 
     private void setButtonOnClick(final Context ctx){
@@ -116,6 +117,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(ctx, EditProfileActivity.class);
+                ctx.startActivity(myIntent);
+            }
+        });
+
+        addNewMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ctx, AddNewMeetingActivity.class);
                 ctx.startActivity(myIntent);
             }
         });

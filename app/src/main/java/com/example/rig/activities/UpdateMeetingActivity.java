@@ -99,40 +99,7 @@ public class UpdateMeetingActivity extends AppCompatActivity {
         updateMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoadingAnimation.startLoading(UpdateMeetingActivity.this);
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-
-                ArrayList<String> updatedRole = new ArrayList<>();
-                updatedRole.clear();
-
-                if(astBox.isChecked()){
-                    updatedRole.add("Assistant");
-                }
-                if(spvBox.isChecked()){
-                    updatedRole.add("Supervisor");
-                }
-                if(naBox.isChecked()){
-                    updatedRole.add("Network Administrator");
-                }
-                if(subcoBox.isChecked()){
-                    updatedRole.add("Subject Coordinator");
-                }
-
-                Meeting updatedMeeting = new Meeting(meeting.getId(), desc.getText().toString(), link_zoom.getText().toString(),
-                        meet_id.getText().toString(), meet_pass.getText().toString(), time.getText().toString() + " " + timeHour.getText().toString(),
-                        dateFormat.format(date), updatedRole);
-                SingletonFirebaseTool.getInstance().getMyFireStoreReference().collection("meetings")
-                        .document(meeting.getId())
-                        .set(updatedMeeting)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateMeetingActivity.this, getResources().getString(R.string.meeting_updated), Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        });
-
+                checkValidation();
             }
         });
 
@@ -167,6 +134,66 @@ public class UpdateMeetingActivity extends AppCompatActivity {
             }
         };
 
+    }
+
+    void checkValidation() {
+        String description = desc.getText().toString();
+        String meetId = meet_id.getText().toString();
+        String meetPass = meet_pass.getText().toString();
+        String datePick = time.getText().toString();
+        String timeH = timeHour.getText().toString();
+        String link = link_zoom.getText().toString();
+
+
+        if (description.trim().isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.desc), Toast.LENGTH_SHORT).show();
+        } else if (meetId.trim().isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.meetId), Toast.LENGTH_SHORT).show();
+        } else if (meetPass.trim().isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.meetPass), Toast.LENGTH_SHORT).show();
+        } else if (datePick.trim().equals("Pick your date")) {
+            Toast.makeText(this, getResources().getString(R.string.pickdate), Toast.LENGTH_SHORT).show();
+        } else if (timeH.trim().isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.timeH), Toast.LENGTH_SHORT).show();
+        } else if (link.trim().isEmpty()) {
+            Toast.makeText(this, getResources().getString(R.string.link), Toast.LENGTH_SHORT).show();
+        } else if (!astBox.isChecked() && !spvBox.isChecked() && !naBox.isChecked() && !subcoBox.isChecked()) {
+            Toast.makeText(this, getResources().getString(R.string.checkAst), Toast.LENGTH_SHORT).show();
+        } else {
+            LoadingAnimation.startLoading(UpdateMeetingActivity.this);
+            Date date = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+            ArrayList<String> updatedRole = new ArrayList<>();
+            updatedRole.clear();
+
+            if(astBox.isChecked()){
+                updatedRole.add("Assistant");
+            }
+            if(spvBox.isChecked()){
+                updatedRole.add("Supervisor");
+            }
+            if(naBox.isChecked()){
+                updatedRole.add("Network Administrator");
+            }
+            if(subcoBox.isChecked()){
+                updatedRole.add("Subject Coordinator");
+            }
+
+            Meeting updatedMeeting = new Meeting(meeting.getId(), desc.getText().toString(), link_zoom.getText().toString(),
+                    meet_id.getText().toString(), meet_pass.getText().toString(), time.getText().toString() + " " + timeHour.getText().toString(),
+                    dateFormat.format(date), updatedRole);
+            SingletonFirebaseTool.getInstance().getMyFireStoreReference().collection("meetings")
+                    .document(meeting.getId())
+                    .set(updatedMeeting)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateMeetingActivity.this, getResources().getString(R.string.meeting_updated), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+        }
     }
 
 
