@@ -2,11 +2,15 @@ package com.example.rig.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +22,7 @@ import com.example.rig.authentication.UserSession;
 import com.example.rig.models.Meeting;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,11 +30,12 @@ import java.util.Date;
 
 public class UpdateMeetingActivity extends AppCompatActivity {
 
-    EditText desc, meet_id, meet_pass, link_zoom;
+    EditText desc, meet_id, meet_pass, link_zoom, timeHour;
     TextView time;
     CheckBox astBox, spvBox, naBox, subcoBox;
     Meeting meeting = new Meeting();
-    private Button updateMeeting;
+    private Button updateMeeting, changeDate;
+    DatePickerDialog.OnDateSetListener setListener;
 
     void initVariable(){
         desc = findViewById(R.id.up_meet_desc);
@@ -42,6 +48,8 @@ public class UpdateMeetingActivity extends AppCompatActivity {
         naBox = findViewById(R.id.up_na2);
         subcoBox = findViewById(R.id.up_subco2);
         updateMeeting = findViewById(R.id.update_meeting_button);
+        changeDate = findViewById(R.id.openDatePicker);
+        timeHour = findViewById(R.id.timeHour);
     }
 
     void setMeeting(){
@@ -67,7 +75,9 @@ public class UpdateMeetingActivity extends AppCompatActivity {
         meet_id.setText(meeting.getMeeting_id());
         meet_pass.setText(meeting.getMeeting_password());
         link_zoom.setText(meeting.getLink_meeting());
-        time.setText(meeting.getTime());
+        String[] arrSplit = meeting.getTime().split(" ");
+        time.setText(arrSplit[0]);
+        timeHour.setText(arrSplit[1]);
 
         for (String role : meeting.getRoles()){
             if(role.equals("Assistant")){
@@ -110,7 +120,7 @@ public class UpdateMeetingActivity extends AppCompatActivity {
                 }
 
                 Meeting updatedMeeting = new Meeting(meeting.getId(), desc.getText().toString(), link_zoom.getText().toString(),
-                        meet_id.getText().toString(), meet_pass.getText().toString(), time.getText().toString(),
+                        meet_id.getText().toString(), meet_pass.getText().toString(), time.getText().toString() + " " + timeHour.getText().toString(),
                         dateFormat.format(date), updatedRole);
                 SingletonFirebaseTool.getInstance().getMyFireStoreReference().collection("meetings")
                         .document(meeting.getId())
@@ -125,6 +135,38 @@ public class UpdateMeetingActivity extends AppCompatActivity {
 
             }
         });
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        changeDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        UpdateMeetingActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, setListener, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+
+        setListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month += 1;
+                String date = dayOfMonth + "-" + month + "-" + year;
+                Date pDate = null;
+                SimpleDateFormat dFormat = new SimpleDateFormat("dd-mm-yyyy");
+                try {
+                    pDate = new SimpleDateFormat("dd-mm-yyyy").parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                time.setText(dFormat.format(pDate));
+            }
+        };
+
     }
 
 

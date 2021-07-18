@@ -132,7 +132,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="10dp"
@@ -143,21 +143,39 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="dd MMM yyyy 00:00"
+                        android:layout_marginTop="10dp"
                         android:textColor="#000000"
+                        android:textSize="20dp"
                         android:layout_gravity="center"
                         />
 
-                    <Button
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:textSize="12dp"
-                        android:text="Change Date"
-                        android:background="@drawable/button1"
-                        android:textColor="#ffffff"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:layout_marginLeft="30dp"
-                        />
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/timeHour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:hint="00:00"/>
+
+                        <Button
+                            android:id="@+id/openDatePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:textSize="12dp"
+                            android:text="Change Date"
+                            android:background="@drawable/button1"
+                            android:textColor="#ffffff"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:layout_marginLeft="30dp"
+                            />
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
