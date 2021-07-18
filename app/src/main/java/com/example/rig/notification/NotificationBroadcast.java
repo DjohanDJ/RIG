@@ -1,10 +1,17 @@
 package com.example.rig.notification;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +20,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.rig.R;
 import com.example.rig.activities.HomeActivity;
+import com.example.rig.activities.ViewAllMeetingAstActivity;
 import com.example.rig.authentication.SingletonFirebaseTool;
 import com.example.rig.authentication.UserSession;
 import com.example.rig.models.Meeting;
@@ -43,6 +51,25 @@ public class NotificationBroadcast extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifChannel").setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle(title)
                 .setContentText(desc)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        NotificationManagerCompat notifManager = NotificationManagerCompat.from(context);
+
+        notifManager.notify(200, builder.build());
+    }
+
+    void sendNotifZoom(Context context, String title, String desc, String link_meeting){
+        Intent intentTest = new Intent(Intent.ACTION_VIEW, Uri.parse(link_meeting));
+        intentTest.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent1 = PendingIntent.getActivity(context,1, intentTest, PendingIntent.FLAG_ONE_SHOT);
+
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifChannel").setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setContentTitle(title)
+                .setContentText(desc)
+                .setSound(alarmSound)
+                .addAction(R.drawable.ic_launcher_foreground,"Open", pendingIntent1)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationManagerCompat notifManager = NotificationManagerCompat.from(context);
@@ -118,17 +145,18 @@ public class NotificationBroadcast extends BroadcastReceiver {
                                     pDate.setTime(pDate.getTime() - minute5);
                                     postDate = dFormat.format(pDate);
 
-
-                                    if(postDate.equalsIgnoreCase(today)){
-                                        sendNotif(ctx, meeting.getDescription(), "Meeting will start in 5 minutes");
-                                        break;
-                                    }else if (date.getTime() - pDate.getTime() > 1000 * 60 * 60){
+                                    if (date.getTime() - pDate.getTime() > 1000 * 60 * 60){
                                         //delete meeting
+                                        sendNotifZoom(ctx, "Delete Meeting", "Should be delete meeting",meeting.getLink_meeting());
+                                    }
+                                    if(postDate.equalsIgnoreCase(today)){
+                                        sendNotifZoom(ctx, meeting.getDescription(), "Meeting will start in 5 minutes", meeting.getLink_meeting());
                                         break;
                                     }else if (date.getTime() - createdDate.getTime() <= 1000 * 60 * 2){
                                         sendNotif(ctx, meeting.getDescription(), "Check your new meeting");
                                         break;
                                     }
+
                                 }
                             }
 

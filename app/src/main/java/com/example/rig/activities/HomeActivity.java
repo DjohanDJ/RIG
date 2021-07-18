@@ -155,12 +155,8 @@ public class HomeActivity extends AppCompatActivity {
                             calendar.set(calendar.get(calendar.YEAR), calendar.get(calendar.MONTH), calendar.get(calendar.DATE),calendar.get(calendar.HOUR),  calendar.get(calendar.MINUTE), 0);
                             calendar.add(Calendar.MINUTE, 2);
 
-                            Toast.makeText(ctx,  calendar.getTime().toString(), Toast.LENGTH_SHORT).show();
-
                             String now = "" + calendar.get(calendar.DATE) + "-" +  calendar.get(calendar.MONTH)+"-"+calendar.get(calendar.YEAR) + " "
                                     + calendar.get(calendar.HOUR) + ":" + calendar.get(calendar.MINUTE)  + ":00";
-
-                            Toast.makeText(ctx, String.valueOf(calendar.get(calendar.MINUTE)), Toast.LENGTH_SHORT).show();
 
                             Date date = null;
 
