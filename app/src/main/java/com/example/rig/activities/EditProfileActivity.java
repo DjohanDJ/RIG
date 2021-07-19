@@ -115,6 +115,7 @@ public class EditProfileActivity extends AppCompatActivity {
         this.nameText.setText(UserSession.getCurrentUser().getName());
         this.emailText.setText(UserSession.getCurrentUser().getEmail());
         this.initialText.setText(UserSession.getCurrentUser().getInitial());
+        this.emailText.setEnabled(false);
     }
 
 }
