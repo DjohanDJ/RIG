@@ -52,6 +52,29 @@ public class HomeActivity extends AppCompatActivity {
         setButtonOnClick(this);
         createNotifChannel();
         process(ctx);
+        setButtonVisible();
+    }
+
+    private void setButtonVisible() {
+        String role = UserSession.getCurrentUser().getRole();
+
+        if(role.equals("Admin")){
+            create.setVisibility(View.GONE);
+            ban.setVisibility(View.GONE);
+            grant.setVisibility(View.GONE);
+            AllMeetingAst.setVisibility(View.GONE);
+        }else if(role.equals("Supervisor")){
+            addNewMeeting.setVisibility(View.GONE);
+            AllMeetingAst.setVisibility(View.GONE);
+            AllMeetingNonAst.setVisibility(View.GONE);
+            editProfile.setVisibility(View.GONE);
+        }else{
+            create.setVisibility(View.GONE);
+            ban.setVisibility(View.GONE);
+            grant.setVisibility(View.GONE);
+            addNewMeeting.setVisibility(View.GONE);
+            AllMeetingNonAst.setVisibility(View.GONE);
+        }
     }
 
     private void setWelcomeText() {
