@@ -59,15 +59,15 @@ public class HomeActivity extends AppCompatActivity {
         String role = UserSession.getCurrentUser().getRole();
 
         if(role.equals("Admin")){
-            create.setVisibility(View.GONE);
-            ban.setVisibility(View.GONE);
-            grant.setVisibility(View.GONE);
-            AllMeetingAst.setVisibility(View.GONE);
-        }else if(role.equals("Supervisor")){
             addNewMeeting.setVisibility(View.GONE);
             AllMeetingAst.setVisibility(View.GONE);
             AllMeetingNonAst.setVisibility(View.GONE);
             editProfile.setVisibility(View.GONE);
+        }else if(role.equals("Supervisor")){
+            create.setVisibility(View.GONE);
+            ban.setVisibility(View.GONE);
+            grant.setVisibility(View.GONE);
+            AllMeetingAst.setVisibility(View.GONE);
         }else{
             create.setVisibility(View.GONE);
             ban.setVisibility(View.GONE);
