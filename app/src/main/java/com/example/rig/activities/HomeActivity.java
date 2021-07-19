@@ -153,9 +153,9 @@ public class HomeActivity extends AppCompatActivity {
 
                             Calendar calendar = Calendar.getInstance();
                             calendar.set(calendar.get(calendar.YEAR), calendar.get(calendar.MONTH), calendar.get(calendar.DATE),calendar.get(calendar.HOUR),  calendar.get(calendar.MINUTE), 0);
-                            calendar.add(Calendar.MINUTE, 2);
+                            calendar.add(Calendar.MINUTE, 1);
 
-                            String now = "" + calendar.get(calendar.DATE) + "-" +  calendar.get(calendar.MONTH)+"-"+calendar.get(calendar.YEAR) + " "
+                            String now = "" + calendar.get(calendar.DATE) + "-" +  (calendar.get(calendar.MONTH) + 1)+"-"+calendar.get(calendar.YEAR) + " "
                                     + calendar.get(calendar.HOUR) + ":" + calendar.get(calendar.MINUTE)  + ":00";
 
                             Date date = null;
@@ -165,7 +165,6 @@ public class HomeActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
 
                             int repeatEvery = 1000 * 60 * 1; //1 menit
 
